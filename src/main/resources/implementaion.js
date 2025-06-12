@@ -83,6 +83,7 @@ db = new SQL.Database();})();
 
 function execQuery(quer) {
   return new Promise(async (resolve, reject) => {
+  console.time("time")
     try {
       //db.run("CREATE TABLE users (id INT, name TEXT);");
       //db.run("CREATE TABLE orders (id INT, user_id INT, amount DECIMAL);");
@@ -102,7 +103,9 @@ function execQuery(quer) {
       console.error("Error in useSqliteWasmOffline:", error);
       reject(error); // Reject the promise if any error occurs
     }
-  });
+     console.timeEnd("time")
+  }
+  );
 }
 function close(){
       const binaryData = db.export();

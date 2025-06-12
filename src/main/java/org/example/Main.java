@@ -38,15 +38,9 @@ public class Main {
 
     private static Map<String, String> getLanguageOptions() {
         Map<String, String> options = new HashMap<>();
-
-        options.put("js.ecmascript-version", "2023");
-        options.put("js.top-level-await", "true");
         options.put("js.webassembly", "true");
         options.put("js.commonjs-require", "true");
-        options.put("js.mle-mode", "true");
         options.put("js.esm-eval-returns-exports", "true");
-        options.put("js.unhandled-rejections", "throw");
-        options.put("js.commonjs-require-cwd", Paths.get("./src/main/resources").toAbsolutePath().toString());
         return options;
     }
 
@@ -54,13 +48,7 @@ public class Main {
 
 
         try (Context context = Context.newBuilder("js", "wasm")
-                .allowHostAccess(HostAccess.ALL)
-                .allowIO(true)
-                .option("engine.WarnInterpreterOnly", "false")
-                .option("js.esm-eval-returns-exports", "true")
-                .option("js.unhandled-rejections", "throw")
                 .allowAllAccess(true)
-                .allowHostClassLookup(s -> true)
                 .options(getLanguageOptions())
                 .build()) {
             byte[] wasmfile = Files.readAllBytes(Paths.get("./src/main/resources/sql-wasm.wasm"));
